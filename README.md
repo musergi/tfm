@@ -40,3 +40,15 @@ Hardware performance counters.
 | Total Instructions      | TOT-INS    |
 | L3 Total Cache Accesses | L3-TCA     |
 | L3 Total Cache Misses   | L3-TCM     |
+
+## Work to do
+
+As this previous works have shown we can clearly create a tool based on Machine Learning that is able to detect this
+particular attacks. And there are plenty of them developped. However there is no unified metric between them as each of
+them works with their particular dataset. From the previously seen articles the library to use is PAPI as it allows
+to record numerous events with low lattency.
+
+## Goals
+
+- [ ] Develop simple monitoring tool using PAPI
+- [ ] Generate small proof of concept dataset
