@@ -48,7 +48,14 @@ particular attacks. And there are plenty of them developped. However there is no
 them works with their particular dataset. From the previously seen articles the library to use is PAPI as it allows
 to record numerous events with low lattency.
 
+## Instalation
+
+```bash
+apt install papi-tools
+```
+
 ## Goals
 
+- [x] Install PAPI and run example
 - [ ] Develop simple monitoring tool using PAPI
 - [ ] Generate small proof of concept dataset
