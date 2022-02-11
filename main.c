@@ -8,48 +8,71 @@ void handle_error(int retval) {
   exit(1);
 }
 
-int main() {
-  int eventSet = PAPI_NULL;
-  unsigned int native = 0x0;
-  int retval, i;
-  PAPI_event_info_t info;
-  PAPI_event_info_t *infostructs;
-
-  /* Init PAPI library */
-  retval = PAPI_library_init(PAPI_VER_CURRENT);
-
-  if (retval != PAPI_VER_CURRENT) {
+void libInit() {
+  int returnValue;
+  returnValue = PAPI_library_init(PAPI_VER_CURRENT);
+  if (returnValue != PAPI_VER_CURRENT) {
     fprintf(stderr, "PAPI library init error!\n");
     exit(1);
   }
+}
 
-  /* Check to see if the preset, PAPI_TOT_INS, exists */
-  retval = PAPI_query_event(PAPI_TOT_INS);
-  if (retval != PAPI_OK) {
-    fprintf(stderr,"No instruction counter? How lame.\n");
-    handle_error(retval);
+void createEventSet(int *eventSet) {
+  if (PAPI_create_eventset(eventSet) != PAPI_OK) {
+    fprintf(stderr, "Failed to create event set.\n");
+    handle_error(1);
   }
+}
 
-  /* Get details about the preset, PAPI_TOT_INS */
-  retval = PAPI_get_event_info(PAPI_TOT_INS, &info);
-  if (retval != PAPI_OK) {
-    fprintf(stderr,"No event info? How lame.\n");
-    handle_error(retval);
+void addEvent(int eventSet, int event) {
+  int returnValue = PAPI_add_event(eventSet, event); 
+  if (returnValue != PAPI_OK) {
+    fprintf(stderr, "Failed to add event set.\n");
+    handle_error(returnValue);
   }
+}
 
-  if (info.count > 0)
-    printf ("This event is available on this hardware.\n");
+void startEvent(int eventSet) {
+  if (PAPI_start(eventSet) != PAPI_OK) {
+    fprintf(stderr, "Failed to start event set.\n");
+    handle_error(1);
+  }
+}
 
-  if (strcmp(info.derived, "NOT_DERIVED"))
-    printf ("This event is a derived event on this hardware.\n");
+void readEvent(int eventSet, long long *values) {
+  if (PAPI_read(eventSet, values) != PAPI_OK) {
+    handle_error(1);
+  }
+}
 
-  /* Count the number of available preset events between
-     PAPI_TOT_INS and the end of the preset list */
-  retval = 0;
-  i = PAPI_TOT_INS;
+void stopEvent(int eventSet, long long *values) {
+  if (PAPI_stop(eventSet, values) != PAPI_OK) {
+    fprintf(stderr, "Failed to stop event set.\n");
+    handle_error(1);
+  }
+}
 
-  while (PAPI_enum_event(&i, PAPI_ENUM_EVENTS) == PAPI_OK)
-    retval++;
-  printf ("There are %d PRESET events after PAPI_TOT_INS.\n", retval);
-  exit(0);
+int main() {
+  int eventSet = PAPI_NULL;
+  long long values[1];
+  int i, acc;
+
+  /* Init counter */
+  libInit();
+  createEventSet(&eventSet);
+  addEvent(eventSet, PAPI_TOT_INS);
+  startEvent(eventSet);
+
+  /* Do actual work */
+  acc = 0;
+  for (i = 0; i < 1000; i++) {
+    acc += i;
+  }
+  printf("Test accumulator %d\n", acc);
+
+  /* Measure */
+  stopEvent(eventSet, values);
+  printf("Value of TOT_INS after work %lld\n", values[0]);
+
+  return 0;
 }
