@@ -3,7 +3,11 @@
 #include <cstring>
 #include <stdexcept>
 
-Event::Event(unsigned int code) : code(code) {
+Event::Event(int code) : code(code) {
+}
+
+unsigned int Event::getCode() {
+  return code;
 }
 
 std::string Event::getSymbol() {
@@ -36,9 +40,38 @@ bool Event::isDerived() {
   return strcmp(eventInfo.derived, "NOT_DERIVED") != 0;
 }
 
+Event Event::first(int mask) {
+  int eventCode = 0 | mask;
+  int error = PAPI_enum_event(&eventCode, PAPI_ENUM_FIRST);
+  if (error) {
+    throw std::out_of_range("Failed to fetch first event");
+  }
+  return Event(eventCode);
+}
+
+bool Event::hasNext() {
+  int eventCode = code;
+  int error = PAPI_enum_event(&eventCode, PAPI_ENUM_EVENTS);
+  return error == PAPI_OK;
+}
+
+Event Event::next() {
+  int eventCode = code;
+  int error = PAPI_enum_event(&eventCode, PAPI_ENUM_EVENTS);
+  if (error) {
+    throw std::out_of_range("Failed to fetch next event");
+  }
+  return Event(eventCode);
+}
+
 void Event::getEventInfo(PAPI_event_info_t *eventInfo) {
   int error = PAPI_get_event_info(code, eventInfo);
   if (error != PAPI_OK) {
     throw std::logic_error("Failed to fetch event info");
   }
+}
+
+
+std::ostream &operator<<(std::ostream &os, Event &event) {
+  return os << "{" << event.getCode() << ", " << event.getSymbol() << "}";
 }
