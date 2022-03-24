@@ -3,7 +3,7 @@
 #include "Event.hpp"
 
 int main() {
-  Event event = Event::first(PAPI_UE_MASK);
+  Event event = Event::first();
   std::cout << event << std::endl;
   return 0;
 }

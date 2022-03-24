@@ -20,7 +20,7 @@ public:
   bool isDerived();
 
   /* Iteration methods */
-  static Event first(int mask);
+  static Event first();
   bool hasNext();
   Event next();
 

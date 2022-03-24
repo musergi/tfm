@@ -40,8 +40,8 @@ bool Event::isDerived() {
   return strcmp(eventInfo.derived, "NOT_DERIVED") != 0;
 }
 
-Event Event::first(int mask) {
-  int eventCode = 0 | mask;
+Event Event::first() {
+  int eventCode = 0 | PAPI_PRESET_MASK;
   int error = PAPI_enum_event(&eventCode, PAPI_ENUM_FIRST);
   if (error) {
     throw std::out_of_range("Failed to fetch first event");
