@@ -1,5 +1,9 @@
 #include "ArgumentParser.hpp"
 
+ArgumentParser::ArgumentParser():argumentParsed(false) {
+
+}
+
 void ArgumentParser::addArgument(const char *name) {
     arguments.push_back(name);
 }

@@ -6,11 +6,12 @@
 
 class ArgumentParser {
 private:
-  bool argumentParsed = false;
+  bool argumentParsed;
   std::vector<std::string> arguments;
-  std::map<std::string, std::vector<std::string>> values;
+  std::map<std::string, std::vector<std::string> > values;
 
 public:
+  ArgumentParser();
   void addArgument(const char *name);
   void parseArgs(int argc, const char **argv);
   bool isSet(const char *name);
