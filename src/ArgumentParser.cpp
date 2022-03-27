@@ -9,12 +9,14 @@ void ArgumentParser::addArgument(const char *name) {
 }
 
 void ArgumentParser::parseArgs(int argc, const char **argv) {
+    std::string last_word;
     for (int wordIndex = 0; wordIndex < argc; wordIndex++) {
         std::string word(argv[wordIndex]);
         if (word.rfind("--", 0) == 0) {
-            values.emplace(word.substr(2));
+            last_word = word.substr(2);
+            values[last_word];
         } else {
-            values.rbegin()->second.push_back(word);
+            values[last_word].push_back(word);
         }
     }
     argumentParsed = true;
