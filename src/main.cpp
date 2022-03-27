@@ -1,9 +1,12 @@
 #include <iostream>
-#include <papi.h>
-#include "Event.hpp"
+#include "ArgumentParser.hpp"
 
 int main(int argc, char **argv) {
-  Event event = Event::first();
-  std::cout << event << std::endl;
+  ArgumentParser parser;
+  parser.addArgument("list");
+  parser.parseArgs(argc, argv);
+  if (parser.isSet("list")) {
+    std::cout << "Entering listing mode" << std::endl;
+  }
   return 0;
 }
