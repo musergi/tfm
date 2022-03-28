@@ -27,6 +27,7 @@ public:
 
 private:
   void getEventInfo(PAPI_event_info_t *eventInfo);
+  void ensureLibraryInit();
 };
 
 std::ostream &operator<<(std::ostream &os, Event &event);

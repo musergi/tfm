@@ -8,6 +8,7 @@ Event::Event(int code) : code(code) {
 }
 
 Event::Event(const char* symbol) {
+  ensureLibraryInit();
   int error = PAPI_event_name_to_code(symbol, &code);
   if (error != PAPI_OK) {
       throw PapiException(error);
@@ -76,6 +77,16 @@ void Event::getEventInfo(PAPI_event_info_t *eventInfo) {
   int error = PAPI_get_event_info(code, eventInfo);
   if (error != PAPI_OK) {
     throw std::logic_error("Failed to fetch event info");
+  }
+}
+
+void Event::ensureLibraryInit() {
+  int initialization = PAPI_is_initialized();
+  if (initialization != PAPI_LOW_LEVEL_INITED) {
+    int version = PAPI_library_init(PAPI_VER_CURRENT);
+    if (retval != PAPI_VER_CURRENT && retval > 0) {
+      std::runtime_error("Failed to init PAPI library");
+    }
   }
 }
 
