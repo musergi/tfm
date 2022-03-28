@@ -2,6 +2,8 @@
 
 #include <cstring>
 #include <stdexcept>
+#include <papi.h>
+#include "PapiException.hpp"
 
 Event::Event(int code) : code(code) {
 }
@@ -9,9 +11,7 @@ Event::Event(int code) : code(code) {
 Event::Event(const char* symbol) {
   int error = PAPI_event_name_to_code(symbol, &code);
   if (error != PAPI_OK) {
-      std::string message("Failed to fetch event by name: ");
-      message += symbol;
-      throw std::runtime_error(message);
+      throw PapiException(error);
   }
 }
 

@@ -2,7 +2,6 @@
 
 #include <string>
 #include <ostream>
-#include <papi.h>
 
 class Event {
 private:
