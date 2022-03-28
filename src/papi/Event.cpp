@@ -84,7 +84,7 @@ void Event::ensureLibraryInit() {
   int initialization = PAPI_is_initialized();
   if (initialization != PAPI_LOW_LEVEL_INITED) {
     int version = PAPI_library_init(PAPI_VER_CURRENT);
-    if (retval != PAPI_VER_CURRENT && retval > 0) {
+    if (version != PAPI_VER_CURRENT && version > 0) {
       std::runtime_error("Failed to init PAPI library");
     }
   }
