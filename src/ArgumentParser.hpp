@@ -1,16 +1,17 @@
 #pragma once
 
-#include <vector>
 #include <string>
-#include <map>
+#include <vector>
+#include <unordered_set>
+#include <unordered_map>
 
 class ArgumentParser {
 private:
   bool argumentParsed;
-  std::vector<std::string> arguments;
-  std::map<std::string, std::vector<std::string> > values;
+  std::unordered_set<std::string> arguments;
+  std::unordered_map<std::string, std::vector<std::string> > values;
 
-public:
+  public:
   ArgumentParser();
   void addArgument(const char *name);
   void parseArgs(int argc, const char **argv);
