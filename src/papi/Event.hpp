@@ -10,6 +10,7 @@ private:
 
 public:
   Event(int code);
+  Event(const char *symbol);
 
   /* Attribute access methods */
   unsigned int getCode();
