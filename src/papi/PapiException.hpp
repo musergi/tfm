@@ -7,4 +7,4 @@ public:
   PapiException(int error);
 private:
   static std::string getPapiError(int error);
-}
+};
