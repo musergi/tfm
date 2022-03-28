@@ -15,7 +15,7 @@ void ArgumentParser::parseArgs(int argc, const char **argv) {
         std::string word(argv[wordIndex]);
         if (word.rfind("--", 0) == 0) {
             lastWord = word.substr(2);
-            if (arguments.count(lastWord)) {
+            if (!arguments.count(lastWord)) {
                 throw std::runtime_error("Invalid argument");
             }
             values[lastWord];
