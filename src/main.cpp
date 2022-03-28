@@ -5,7 +5,7 @@
 int main(int argc, const char **argv) {
   ArgumentParser parser;
   parser.addArgument("list");
-  parser.addArgument("record")
+  parser.addArgument("record");
   parser.parseArgs(argc, argv);
 
   if (parser.isSet("list")) {
@@ -20,7 +20,7 @@ int main(int argc, const char **argv) {
   } else if (parser.isSet("record")) {
     std::cout << "Entering record mode." << std::endl;
     for (std::string eventSymbol: parser.getValues("record")) {
-      Event event(eventSymbol);
+      Event event(eventSymbol.c_str());
       std::cout << "Recording: " << event.getCode() << " , " << event.getSymbol() << std::endl;
     }
   }
