@@ -27,5 +27,8 @@ void ArgumentParser::parseArgs(int argc, const char **argv) {
 }
 
 bool ArgumentParser::isSet(const char *name) {
+    if (!argumentParsed) {
+        throw std::logic_error("Argument read before parsing");
+    }
     return values.count(name);
 }
