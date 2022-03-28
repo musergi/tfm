@@ -7,7 +7,7 @@ Event::Event(int code) : code(code) {
 }
 
 Event::Event(const char* symbol) {
-  int error = PAPI_event_name_to_code(symbol, &code)
+  int error = PAPI_event_name_to_code(symbol, &code);
   if (error) {
     throw std::runtime_error("Failed to fetch event by name");
   }
