@@ -2,7 +2,6 @@
 
 #include <cstring>
 #include <stdexcept>
-#include <papi.h>
 #include "PapiException.hpp"
 
 Event::Event(int code) : code(code) {
