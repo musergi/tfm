@@ -18,7 +18,7 @@ namespace papi {
     Context::~Context() {
     }
 
-    Context::checkError(int error) const {
+    void Context::checkError(int error) const {
         if (error != PAPI_OK) {
             throw PapiException(error);
         }
