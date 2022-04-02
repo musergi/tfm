@@ -1,5 +1,6 @@
 #include "EventSet.hpp"
 
+#include <papi.h>
 #include "PapiException.hpp"
 
 namespace papi {
@@ -22,7 +23,7 @@ namespace papi {
   }
 
   void EventSet::stop() {
-    long_long *values = new long_long[eventCount];
+    long long *values = new long long[eventCount];
     context->checkError(PAPI_stop(eventSet, values));
     delete[] values;
   }
