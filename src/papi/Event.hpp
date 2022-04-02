@@ -2,32 +2,31 @@
 
 #include <string>
 #include <ostream>
-#include <papi.h>
+#include "Context.hpp"
 
-class Event {
-private:
-  int code;
+namespace papi {
+  class Event {
+  private:
+    const Context *context;
+    int code;
 
-public:
-  Event(int code);
-  Event(const char *symbol);
+  public:
+    Event(const Context *context, int code);
+    Event(const Context *context, const char *symbol);
 
-  /* Attribute access methods */
-  unsigned int getCode();
-  std::string getSymbol();
-  std::string getShortDescription();
-  std::string getLongDescription();
-  std::string getUnits();
-  bool isDerived();
+    /* Attribute access methods */
+    unsigned int getCode() const;
+    std::string getSymbol() const;
+    std::string getShortDescription() const;
+    std::string getLongDescription() const;
+    std::string getUnits() const;
+    bool isDerived() const;
 
-  /* Iteration methods */
-  static Event first();
-  bool hasNext();
-  Event next();
-
-private:
-  void getEventInfo(PAPI_event_info_t *eventInfo);
-  void ensureLibraryInit();
-};
-
-std::ostream &operator<<(std::ostream &os, Event &event);
+    /* Iteration methods */
+    static Event first(const Context *context);
+    bool hasNext() const;
+    Event next() const;
+  };
+  
+  std::ostream &operator<<(std::ostream &os, Event &event);
+}
