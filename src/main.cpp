@@ -1,6 +1,8 @@
 #include <iostream>
 #include "ArgumentParser.hpp"
+#include "Context.hpp"
 #include "Event.hpp"
+#include "EventSet.hpp"
 
 int main(int argc, const char **argv) {
   ArgumentParser parser;
@@ -21,8 +23,10 @@ int main(int argc, const char **argv) {
   } else if (parser.isSet("record")) {
     std::cout << "Entering record mode." << std::endl;
     papi::Context context;
+    papi::EventSet eventSet(&context);
     for (std::string eventSymbol: parser.getValues("record")) {
       papi::Event event(&context, eventSymbol.c_str());
+      eventSet.addEvent(event);
       std::cout << "Recording: " << event.getCode() << ", " << event.getSymbol() << std::endl;
     }
   }
