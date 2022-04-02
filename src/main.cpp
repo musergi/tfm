@@ -29,6 +29,13 @@ int main(int argc, const char **argv) {
       eventSet.addEvent(event);
       std::cout << "Recording: " << event.getCode() << ", " << event.getSymbol() << std::endl;
     }
+    eventSet.start();
+    int acc = 0;
+    for (int i = 0; i < 10000; i++) {
+      acc++;
+    }
+    std::cout << acc << std::endl;
+    eventSet.stop();
   }
   return 0;
 }
