@@ -2,44 +2,28 @@
 
 #include "PapiException.hpp"
 
-EventSet::EventSet() : eventSet(PAPI_NULL), eventCount(0) {
-    int error = PAPI_create_eventset(&eventSet);
-    if (error != PAPI_OK) {
-        throw PapiException(error);
-    }
-}
+namespace papi {
+  EventSet::EventSet(const Context *context) : eventSet(PAPI_NULL), eventCount(0), context(context) {
+    context->checkError(PAPI_create_eventset(&eventSet));
+  }
 
-EventSet::~EventSet() {
-    int error = PAPI_cleanup_eventset(&eventSet);
-    if (error != PAPI_OK) {
-        throw PapiException(error);
-    }
-    error = PAPI_destroy_eventset(&eventSet);
-    if (error != PAPI_OK) {
-        throw PapiException(error);
-    }
-}
+  EventSet::~EventSet() {
+    context->checkError(PAPI_cleanup_eventset(&eventSet));
+    context->checkError(PAPI_destroy_eventset(&eventSet));
+  }
 
-void EventSet::addEvent(Event event) {
-    int error = PAPI_add_event(&eventSet, event.getCode());
-    if (error != PAPI_OK) {
-        throw PapiException(error);
-    }
+  void EventSet::addEvent(Event event) {
+    context->checkError(PAPI_add_event(&eventSet, event.getCode()));
     eventCount++;
-}
+  }
 
-void EventSet::start() {
-    int error = PAPI_start(eventSet);
-    if (error != PAPI_OK) {
-        throw PapiException(error);
-    }
-}
+  void EventSet::start() {
+    context->checkError(PAPI_start(eventSet));
+  }
 
-void EventSet::stop() {
+  void EventSet::stop() {
     long_long *values = new long_long[eventCount];
-    int error = PAPI_stop(eventSet, values);
-    if (error != PAPI_OK) {
-        throw PapiException(error);
-    }
+    context->checkError(PAPI_stop(eventSet, values));
     delete[] values;
+  }
 }

@@ -1,16 +1,19 @@
 #pragma once
 
-#include <papi.h>
+#include "Context.hpp"
 #include "Event.hpp"
 
-class EventSet {
-private:
-  int eventSet;
-  int eventCount;
-public:
-  EventSet();
-  ~EventSet();
-  void addEvent(Event event);
-  void start();
-  void stop()
-};
+namespace papi {
+  class EventSet {
+  private:
+    const Context *context;
+    int eventSet;
+    int eventCount;
+  public:
+    EventSet(const Context *context);
+    ~EventSet();
+    void addEvent(Event event);
+    void start();
+    void stop();
+  };
+}
