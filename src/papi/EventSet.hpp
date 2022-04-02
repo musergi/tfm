@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "Context.hpp"
 #include "Event.hpp"
 
@@ -14,6 +15,6 @@ namespace papi {
     ~EventSet();
     void addEvent(Event event);
     void start();
-    void stop();
+    std::vector<long long> stop();
   };
 }

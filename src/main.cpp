@@ -35,7 +35,7 @@ int main(int argc, const char **argv) {
       acc++;
     }
     std::cout << acc << std::endl;
-    eventSet.stop();
+    std::cout << eventSet.stop() << std::endl;
   }
   return 0;
 }
