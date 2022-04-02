@@ -17,37 +17,37 @@ namespace papi {
     return code;
   }
 
-  static void getEventInfo(const Context *context, PAPI_event_info_t *eventInfo) {
+  static void getEventInfo(const Context *context, int code, PAPI_event_info_t *eventInfo) {
     context->checkError(PAPI_get_event_info(code, eventInfo));
   }
 
   std::string Event::getSymbol() const {
     PAPI_event_info_t eventInfo;
-    getEventInfo(context, &eventInfo);
+    getEventInfo(context, code, &eventInfo);
     return eventInfo.symbol;
   }
 
   std::string Event::getShortDescription() const {
     PAPI_event_info_t eventInfo;
-    getEventInfo(context, &eventInfo);
+    getEventInfo(context, code, &eventInfo);
     return eventInfo.short_descr;
   }
 
   std::string Event::getLongDescription() const {
     PAPI_event_info_t eventInfo;
-    getEventInfo(context, &eventInfo);
+    getEventInfo(context, code, &eventInfo);
     return eventInfo.long_descr;
   }
 
   std::string Event::getUnits() const {
     PAPI_event_info_t eventInfo;
-    getEventInfo(context, &eventInfo);
+    getEventInfo(context, code, &eventInfo);
     return eventInfo.units;
   }
 
   bool Event::isDerived() const {
     PAPI_event_info_t eventInfo;
-    getEventInfo(context, &eventInfo);
+    getEventInfo(context, code, &eventInfo);
     return strcmp(eventInfo.derived, "NOT_DERIVED") != 0;
   }
 
