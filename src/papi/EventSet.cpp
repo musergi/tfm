@@ -9,12 +9,12 @@ namespace papi {
   }
 
   EventSet::~EventSet() {
-    context->checkError(PAPI_cleanup_eventset(&eventSet));
+    context->checkError(PAPI_cleanup_eventset(eventSet));
     context->checkError(PAPI_destroy_eventset(&eventSet));
   }
 
   void EventSet::addEvent(Event event) {
-    context->checkError(PAPI_add_event(&eventSet, event.getCode()));
+    context->checkError(PAPI_add_event(eventSet, event.getCode()));
     eventCount++;
   }
 
