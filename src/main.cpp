@@ -21,7 +21,7 @@ int main(int argc, const char **argv) {
     std::cout << "Entering record mode." << std::endl;
     for (std::string eventSymbol: parser.getValues("record")) {
       Event event(eventSymbol.c_str());
-      std::cout << "Recording: " << event.getCode() << " , " << event.getSymbol() << std::endl;
+      std::cout << "Recording: " << event.getCode() << ", " << event.getSymbol() << std::endl;
     }
   }
   return 0;
