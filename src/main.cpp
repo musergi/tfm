@@ -22,7 +22,7 @@ int main(int argc, const char **argv) {
     std::cout << "Entering record mode." << std::endl;
     papi::Context context;
     for (std::string eventSymbol: parser.getValues("record")) {
-      papi::Event event(context, eventSymbol.c_str());
+      papi::Event event(&context, eventSymbol.c_str());
       std::cout << "Recording: " << event.getCode() << ", " << event.getSymbol() << std::endl;
     }
   }
