@@ -24,7 +24,7 @@ namespace papi {
 
   std::vector<long long> EventSet::stop() {
     std::vector<long long> values(eventCount * sizeof(long long));
-    context->checkError(PAPI_stop(eventSet, values.data));
+    context->checkError(PAPI_stop(eventSet, values.data()));
     return values;
   }
 }
