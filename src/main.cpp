@@ -24,18 +24,32 @@ int main(int argc, const char **argv) {
     std::cout << "Entering record mode." << std::endl;
     papi::Context context;
     papi::EventSet eventSet(&context);
+
+    /* Get all requested events */
     for (std::string eventSymbol: parser.getValues("record")) {
       papi::Event event(&context, eventSymbol.c_str());
       eventSet.addEvent(event);
       std::cout << "Recording: " << event.getCode() << ", " << event.getSymbol() << std::endl;
     }
+
+    /* Start recording */
     eventSet.start();
+
+    /* Run program */
     int acc = 0;
     for (int i = 0; i < 10000; i++) {
       acc++;
     }
     std::cout << acc << std::endl;
-    std::cout << eventSet.stop()[0] << std::endl;
+
+    /* Show recording results */
+    std::vector<long long> counts = eventSet.stop();
+    for (int i = 0; i < counts.size(); i++) {
+      std::cout << parser.getValues("record")[i];
+      std::cout << counts[i] << std::endl;
+    }
+  } else {
+    std::cout << "One of the parameters list or record must be selected" << std::endl;
   }
   return 0;
 }
