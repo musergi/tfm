@@ -23,4 +23,33 @@ namespace papi {
             throw PapiException(error);
         }
     }
+
+    void Context::setDomainUser() {
+      checkError( PAPI_set_domain(PAPI_DOM_USER) );
+    }
+
+    void Context::setDomainKernel() {
+      checkError( PAPI_set_domain(PAPI_DOM_KERNEL) );
+    }
+
+
+    void Context::setDomainAll() {
+      checkError( PAPI_set_domain(PAPI_DOM_ALL) );
+    }
+
+    void Context::setGranularityThread() {
+      checkError( PAPI_set_granularity(PAPI_GRN_THR) );
+    }
+
+    void Context::setGranularityProcess() {
+      checkError( PAPI_set_granularity(PAPI_GRN_PROC) );
+    }
+
+    void Context::setGranularityCPU() {
+      checkError( PAPI_set_granularity(PAPI_GRN_SYS) );
+    }
+
+    void Context::setGranularityCPUs() {
+      checkError( PAPI_set_granularity(PAPI_GRN_SYS_CPU) );
+    }
 }
