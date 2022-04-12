@@ -1,3 +1,4 @@
+#include <unistd.h>
 #include <iostream>
 #include "ArgumentParser.hpp"
 #include "Context.hpp"
@@ -23,6 +24,8 @@ int main(int argc, const char **argv) {
   } else if (parser.isSet("record")) {
     std::cout << "Entering record mode." << std::endl;
     papi::Context context;
+    context.setDomainAll();
+    context.setGranularityCPUs();
     papi::EventSet eventSet(&context);
 
     /* Get all requested events */
@@ -36,11 +39,7 @@ int main(int argc, const char **argv) {
     eventSet.start();
 
     /* Run program */
-    int acc = 0;
-    for (int i = 0; i < 10000; i++) {
-      acc++;
-    }
-    std::cout << acc << std::endl;
+    sleep(1);
 
     /* Show recording results */
     std::vector<long long> counts = eventSet.stop();
