@@ -25,8 +25,8 @@ int main(int argc, const char **argv) {
     std::cout << "Entering record mode." << std::endl;
     papi::Context context;
     context.setDomainAll();
-    context.setGranularityCPUs();
     papi::EventSet eventSet(&context);
+    context.setGranularityCPUs();
 
     /* Get all requested events */
     for (std::string eventSymbol: parser.getValues("record")) {
