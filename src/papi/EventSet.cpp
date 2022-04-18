@@ -18,6 +18,22 @@ namespace papi {
     eventCount++;
   }
 
+  void EventSet::setGranularityThread() {
+    setGranularity(PAPI_GRN_THR);
+  }
+
+  void EventSet::setGranularityProcess() {
+    setGranularity(PAPI_GRN_PROC);
+  }
+  
+  void EventSet::setGranularityCPU() {
+    setGranularity(PAPI_GRN_SYS);
+  }
+
+  void EventSet::setGranularityCPUs() {
+    setGranularity(PAPI_GRN_SYS_CPU);
+  }
+
   void EventSet::start() {
     context->checkError(PAPI_start(eventSet));
   }
@@ -26,5 +42,14 @@ namespace papi {
     std::vector<long long> values(eventCount * sizeof(long long));
     context->checkError(PAPI_stop(eventSet, values.data()));
     return values;
+  }
+
+  void EventSet::setGranularity(int granularity) {
+    context->checkError( PAPI_assign_eventset_component(eventSet, 0) );
+    PAPI_granularity_option_t granularityOption;
+    granularityOption.def_cidx = 0;
+    granularityOption.eventset = eventSet;
+    granularityOption.granularity = granularity;
+    context->checkError( PAPI_set_opt(PAPI_GRANUL, (PAPI_option_t *)&granularityOption) );
   }
 }

@@ -9,9 +9,5 @@ namespace papi {
     void setDomainUser();
     void setDomainKernel();
     void setDomainAll();
-    void setGranularityThread();
-    void setGranularityProcess();
-    void setGranularityCPU();
-    void setGranularityCPUs();
   };
 }

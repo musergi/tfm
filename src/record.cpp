@@ -7,8 +7,8 @@
 int main(int argc, char const **argv) {
   papi::Context context;
   context.setDomainAll();
-  context.setGranularityCPU();
   papi::EventSet eventSet(&context);
+  eventSet.setGranularityCPUs();
 
   for (int i = 1; i < argc; i++) {
     papi::Event event(&context, argv[i]);

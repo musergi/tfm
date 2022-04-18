@@ -13,8 +13,14 @@ namespace papi {
   public:
     EventSet(const Context *context);
     ~EventSet();
+    void setGranularityThread();
+    void setGranularityProcess();
+    void setGranularityCPU();
+    void setGranularityCPUs();
     void addEvent(Event event);
     void start();
     std::vector<long long> stop();
+  private:
+    void setGranularity(int granularity)
   };
 }

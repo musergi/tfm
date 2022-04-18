@@ -5,51 +5,35 @@
 #include "PapiException.hpp"
 
 namespace papi {
-    Context::Context() {
-        int actualVersion = PAPI_library_init(PAPI_VER_CURRENT);
-        if (actualVersion != PAPI_VER_CURRENT && actualVersion > 0) {
-            throw std::runtime_error("Loaded wrong version of PAPI");
-        }
-        if (actualVersion < 0) {
-            throw std::runtime_error("Could not load PAPI");
-        }
-    }
+  Context::Context() {
+      int actualVersion = PAPI_library_init(PAPI_VER_CURRENT);
+      if (actualVersion != PAPI_VER_CURRENT && actualVersion > 0) {
+          throw std::runtime_error("Loaded wrong version of PAPI");
+      }
+      if (actualVersion < 0) {
+          throw std::runtime_error("Could not load PAPI");
+      }
+  }
 
-    Context::~Context() {
-    }
+  Context::~Context() {
+  }
 
-    void Context::checkError(int error) const {
-        if (error != PAPI_OK) {
-            throw PapiException(error);
-        }
-    }
+  void Context::checkError(int error) const {
+      if (error != PAPI_OK) {
+          throw PapiException(error);
+      }
+  }
 
-    void Context::setDomainUser() {
-      checkError( PAPI_set_domain(PAPI_DOM_USER) );
-    }
+  void Context::setDomainUser() {
+    checkError( PAPI_set_domain(PAPI_DOM_USER) );
+  }
 
-    void Context::setDomainKernel() {
-      checkError( PAPI_set_domain(PAPI_DOM_KERNEL) );
-    }
+  void Context::setDomainKernel() {
+    checkError( PAPI_set_domain(PAPI_DOM_KERNEL) );
+  }
 
 
-    void Context::setDomainAll() {
-      checkError( PAPI_set_domain(PAPI_DOM_ALL) );
-    }
-
-    void Context::setGranularityThread() {
-      checkError( PAPI_set_granularity(PAPI_GRN_THR) );
-    }
-
-    void Context::setGranularityProcess() {
-      checkError( PAPI_set_granularity(PAPI_GRN_PROC) );
-    }
-
-    void Context::setGranularityCPU() {
-      checkError( PAPI_set_granularity(PAPI_GRN_SYS) );
-    }
-
-    void Context::setGranularityCPUs() {
-      checkError( PAPI_set_granularity(PAPI_GRN_SYS_CPU) );
-    }
+  void Context::setDomainAll() {
+    checkError( PAPI_set_domain(PAPI_DOM_ALL) );
+  }
 }
