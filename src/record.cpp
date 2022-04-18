@@ -25,7 +25,7 @@ int main(int argc, char const **argv) {
   /* Show recording results */
   std::vector<long long> counts = eventSet.stop();
   for (int i = 0; i < counts.size(); i++) {
-    std::cout << parser.getValues("record")[i];
+    std::cout << argv[i];
     std::cout << counts[i] << std::endl;
   }
   return 0;
