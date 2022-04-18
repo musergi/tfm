@@ -21,6 +21,6 @@ namespace papi {
     void start();
     std::vector<long long> stop();
   private:
-    void setGranularity(int granularity)
+    void setGranularity(int granularity);
   };
 }

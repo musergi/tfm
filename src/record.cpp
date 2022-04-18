@@ -8,7 +8,7 @@ int main(int argc, char const **argv) {
   papi::Context context;
   context.setDomainAll();
   papi::EventSet eventSet(&context);
-  eventSet.setGranularityCPUs();
+  eventSet.setGranularityCPU();
 
   for (int i = 1; i < argc; i++) {
     papi::Event event(&context, argv[i]);
@@ -23,9 +23,9 @@ int main(int argc, char const **argv) {
   sleep(1);
 
   /* Show recording results */
-  std::vector<long long> counts = eventSet.stop();
+  auto counts = eventSet.stop();
   for (int i = 0; i < counts.size(); i++) {
-    std::cout << argv[i];
+    std::cout << argv[i + 1] << ": ";
     std::cout << counts[i] << std::endl;
   }
   return 0;
