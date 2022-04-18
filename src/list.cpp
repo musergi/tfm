@@ -2,7 +2,7 @@
 #include "Context.hpp"
 #include "Event.hpp"
 
-int main(int argc, const char **argv) {
+int main(int argc, char const **argv) {
   papi::Context context;
   auto event = papi::Event::first(&context);
   std::cout << event.getSymbol();
