@@ -19,6 +19,7 @@ namespace papi {
     void setGranularityCPUs();
     void addEvent(Event event);
     void start();
+    std::vector<long long> resetRead();
     std::vector<long long> stop();
   private:
     void setGranularity(int granularity);

@@ -1,5 +1,6 @@
 #include <iostream>
-#include <unistd.h>
+#include <chrono>
+#include <thread>
 #include "Context.hpp"
 #include "Event.hpp"
 #include "EventSet.hpp"
@@ -20,13 +21,22 @@ int main(int argc, char const **argv) {
   eventSet.start();
 
   /* Run program */
-  sleep(1);
+  std::vector<std::vector<long long>> measures;
+  for (int i = 0; i < 100; i++) {
+    measures.push_back(eventSet.resetRead());
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+  }
 
   /* Show recording results */
-  auto counts = eventSet.stop();
-  for (int i = 0; i < counts.size(); i++) {
+  for (int i = 0; i < measures[0].size(); i++) {
     std::cout << argv[i + 1] << ": ";
-    std::cout << counts[i] << std::endl;
+    for (int j = 0; j < measures.size(); j++) {
+      if (j != 0) {
+        std::cout << ",";
+      }
+      std::cout << measures[j][i];
+    }
+    std::cout << std::endl;
   }
   return 0;
 }

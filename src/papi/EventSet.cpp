@@ -43,6 +43,12 @@ namespace papi {
     context->checkError(PAPI_start(eventSet));
   }
 
+  std::vector<long long> EventSet::resetRead() {
+    std::vector<long long> values(eventCount);
+    context->checkError( PAPI_accum(eventSet, values.data()) );
+    return values;
+  }
+
   std::vector<long long> EventSet::stop() {
     std::vector<long long> values(eventCount);
     context->checkError(PAPI_stop(eventSet, values.data()));
