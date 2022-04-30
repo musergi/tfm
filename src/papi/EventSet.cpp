@@ -6,7 +6,8 @@
 
 namespace papi {
   EventSet::EventSet(const Context *context) : eventSet(PAPI_NULL), eventCount(0), context(context) {
-    context->checkError(PAPI_create_eventset(&eventSet));
+    context->checkError( PAPI_create_eventset(&eventSet) );
+    context->checkError( PAPI_assign_eventset_component(eventSet, 0) );
   }
 
   EventSet::~EventSet() {
@@ -57,7 +58,6 @@ namespace papi {
   }
 
   void EventSet::setGranularity(int granularity) {
-    context->checkError( PAPI_assign_eventset_component(eventSet, 0) );
     PAPI_granularity_option_t granularityOption;
     granularityOption.def_cidx = 0;
     granularityOption.eventset = eventSet;
