@@ -34,9 +34,9 @@ namespace papi {
   void EventSet::setGranularityCPUs() {
     try {
       setGranularity(PAPI_GRN_SYS_CPU);
-    } catch (const PapiException& e) {
-      setGranularityCPU();
+    } catch (PapiException& e) {
       std::cerr << "Unable to set granularity SYS_CPU" << std::endl;
+      setGranularityCPU();
     }
   }
 
