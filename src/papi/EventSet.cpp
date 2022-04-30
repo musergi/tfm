@@ -1,5 +1,6 @@
 #include "EventSet.hpp"
 
+#include <iostream>
 #include <papi.h>
 #include "PapiException.hpp"
 
