@@ -17,6 +17,7 @@ namespace papi {
     void setGranularityProcess();
     void setGranularityCPU();
     void setGranularityCPUs();
+    void setGranularityMax();
     void addEvent(Event event);
     void start();
     std::vector<long long> resetRead();

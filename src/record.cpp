@@ -9,7 +9,7 @@ int main(int argc, char const **argv) {
   papi::Context context;
   context.setDomainAll();
   papi::EventSet eventSet(&context);
-  eventSet.setGranularityCPUs();
+  eventSet.setGranularityMax();
 
   for (int i = 1; i < argc; i++) {
     papi::Event event(&context, argv[i]);
