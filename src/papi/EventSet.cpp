@@ -11,6 +11,7 @@ namespace papi {
   }
 
   EventSet::~EventSet() {
+    stop();
     context->checkError(PAPI_cleanup_eventset(eventSet));
     context->checkError(PAPI_destroy_eventset(&eventSet));
   }
