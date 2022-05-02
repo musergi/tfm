@@ -30,7 +30,7 @@ namespace data {
     for (int i = 0; i < df.columns.size(); i++) {
       columnWidths[i] = df.columns[i].size();
       for (int j = 0; j < df.size(); j++) {
-        int size = std::to_string(df.content.at(j * df.columns.size() + i));
+        int size = std::to_string(df.content.at(j * df.columns.size() + i)).size();
         if (size >= columnWidths[i]) {
           columnWidths[i] = size;
         }
