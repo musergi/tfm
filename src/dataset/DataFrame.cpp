@@ -48,6 +48,19 @@ namespace data {
       }
       os << title;
     }
+
+    for (int rowIdx = 0; rowIdx < df.size(); rowIdx++) {
+      for (int columnIdx = 0; columnIdx < df.columns.size(); columnIdx++) {
+        auto const& valueString = std::string(df.content.at(j * df.columns.size() + i));
+        if (columnIdx != 0) {
+          os << "  ";
+        }
+        for (int i = 0; i < columnWidths[columnIdx] - valueString.size(); i++) {
+          os << " ";
+        }
+        os << valueString;
+      }
+    }
     return os;
   }
 }
