@@ -14,8 +14,8 @@ namespace data {
       DataFrame(char const **columns, unsigned int count);
       unsigned int size() const;
       void add(std::vector<long long> const &series);
-      friend std::ostream &operator<<(std::ostream &os, Event &DataFrame);
+      friend std::ostream &operator<<(std::ostream &os, DataFrame &df);
   };
 
-  std::ostream &operator<<(std::ostream &os, Event &DataFrame);
+  std::ostream &operator<<(std::ostream &os, DataFrame &df);
 }
