@@ -4,7 +4,7 @@
 #include "Context.hpp"
 #include "Event.hpp"
 #include "EventSet.hpp"
-#include "Dataframe.hpp"
+#include "DataFrame.hpp"
 
 int main(int argc, char const **argv) {
   papi::Context context;
