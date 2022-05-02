@@ -41,7 +41,7 @@ namespace data {
       std::string title = df.columns[titleIdx];
       int width = columnWidths[titleIdx];
       if (titleIdx != 0) {
-        os << "  "
+        os << "  ";
       }
       for (int i = 0; i < width - title.size(); i++) {
         os << " ";
