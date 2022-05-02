@@ -51,7 +51,7 @@ namespace data {
 
     for (int rowIdx = 0; rowIdx < df.size(); rowIdx++) {
       for (int columnIdx = 0; columnIdx < df.columns.size(); columnIdx++) {
-        auto const& valueString = std::string(df.content.at(rowIdx * df.columns.size() + columnIdx));
+        auto const valueString = std::string(df.content.at(rowIdx * df.columns.size() + columnIdx));
         if (columnIdx != 0) {
           os << "  ";
         }
