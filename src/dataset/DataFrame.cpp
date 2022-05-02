@@ -48,6 +48,7 @@ namespace data {
       }
       os << title;
     }
+    os << "\n";
 
     for (int rowIdx = 0; rowIdx < df.size(); rowIdx++) {
       for (int columnIdx = 0; columnIdx < df.columns.size(); columnIdx++) {
@@ -60,6 +61,7 @@ namespace data {
         }
         os << valueString;
       }
+      os << "\n";
     }
     return os;
   }
