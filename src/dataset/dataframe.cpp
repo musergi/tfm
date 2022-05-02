@@ -1,4 +1,4 @@
-#include "dataframe.hpp"
+#include "Dataframe.hpp"
 
 #include <stdexcept>
 
@@ -8,20 +8,45 @@ namespace data {
 
   DataFrame::DataFrame(char const **columns, unsigned int count) : columns(count) {
     for (int i = 0; i < count; i++) {
-      this.columns[i] = std::string(columns[i]);
+      this->columns[i] = std::string(columns[i]);
     }
   }
   
-  unsigned int size() const {
-    return data.size() / columns.size();
+  unsigned int DataFrame::size() const {
+    return content.size() / columns.size();
   }
 
-  void add(std::vector<long long> const &series) {
+  void DataFrame::add(std::vector<long long> const &series) {
     if (series.size() != columns.size()) {
       throw std::invalid_argument("Size of series did not match columns");
     }
     for (long long dataPoint : series) {
-      data.push_back(dataPoint);
+      content.push_back(dataPoint);
+    }
+  }
+
+  std::ostream &operator<<(std::ostream &os, DataFrame &df) {
+    std::vector<int> columnWidths(df.columns.size());
+    for (int i = 0; i < df.columns.size(); i++) {
+      columnWidths[i] = df.columns[i].size();
+      for (int j = 0; j < df.size(); j++) {
+        int size = std::to_string(df.content.at(j * df.columns.size() + i));
+        if (size >= columnWidths[i]) {
+          columnWidths[i] = size;
+        }
+      }
+    }
+
+    for (int titleIdx = 0; titleIdx < df.columns.size(); titleIdx++) {
+      std::string title = df.columns[titleIdx];
+      int width = columnWidths[titleIdx];
+      if (titleIdx != 0) {
+        os << "  "
+      }
+      for (int i = 0; i < width - title.size(); i++) {
+        os << " ";
+      }
+      os << title;
     }
   }
 }

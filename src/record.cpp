@@ -4,6 +4,7 @@
 #include "Context.hpp"
 #include "Event.hpp"
 #include "EventSet.hpp"
+#include "Dataframe.hpp"
 
 int main(int argc, char const **argv) {
   papi::Context context;
@@ -11,32 +12,26 @@ int main(int argc, char const **argv) {
   papi::EventSet eventSet(&context);
   eventSet.setGranularityMax();
 
+  std::vector<std::string> columns;
   for (int i = 1; i < argc; i++) {
+    columns.push_back(argv[i]);
     papi::Event event(&context, argv[i]);
     eventSet.addEvent(event);
     std::cout << "Recording: " << event.getCode() << ", " << event.getSymbol() << std::endl;
   }
 
   /* Start recording */
+  data::DataFrame df(columns);
   eventSet.start();
 
   /* Run program */
   std::vector<std::vector<long long>> measures;
   for (int i = 0; i < 100; i++) {
-    measures.push_back(eventSet.resetRead());
+    df.add(eventSet.resetRead());
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
   }
 
   /* Show recording results */
-  for (int i = 0; i < measures[0].size(); i++) {
-    std::cout << argv[i + 1] << ": ";
-    for (int j = 0; j < measures.size(); j++) {
-      if (j != 0) {
-        std::cout << ",";
-      }
-      std::cout << measures[j][i];
-    }
-    std::cout << std::endl;
-  }
+  std::cout << df << std::endl;
   return 0;
 }
