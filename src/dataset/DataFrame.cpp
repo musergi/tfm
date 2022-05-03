@@ -1,6 +1,7 @@
 #include "DataFrame.hpp"
 
 #include <stdexcept>
+#include <fstream>
 
 namespace data {
   DataFrame::DataFrame(std::vector<std::string> columns) : columns(columns) {
@@ -22,6 +23,27 @@ namespace data {
     }
     for (long long dataPoint : series) {
       content.push_back(dataPoint);
+    }
+  }
+
+  void DataFrame::toCsv(char const* filepath) const {
+    std::ofstream file(filepath);
+    for (int headerIdx = 0; headerIdx < columns.size(); headerIdx++) {
+      if (headerIdx != 0) {
+        file << ",";
+      }
+      file << columns[headerIdx];
+    }
+    file << "\n";
+    for (int rowIdx = 0; rowIdx < size(); rowIdx++) {
+      int rowOffset = rowIdx * columns.size();
+      for (int columnIdx = 0; columnIdx < columns.size(); columnIdx++) {
+        if (columnIdx != 0) {
+          file << ","
+        }
+        file << content[rowOffset + columnIdx];
+      }
+      file << "\n";
     }
   }
 

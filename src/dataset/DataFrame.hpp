@@ -14,6 +14,7 @@ namespace data {
       DataFrame(char const **columns, unsigned int count);
       unsigned int size() const;
       void add(std::vector<long long> const &series);
+      void toCsv(char const* filepath) const;
       friend std::ostream &operator<<(std::ostream &os, DataFrame &df);
   };
 
