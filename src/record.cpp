@@ -33,5 +33,6 @@ int main(int argc, char const **argv) {
 
   /* Show recording results */
   std::cout << df << std::endl;
+  df.toCsv("out.csv");
   return 0;
 }
