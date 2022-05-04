@@ -39,7 +39,7 @@ namespace data {
       int rowOffset = rowIdx * columns.size();
       for (int columnIdx = 0; columnIdx < columns.size(); columnIdx++) {
         if (columnIdx != 0) {
-          file << ","
+          file << ",";
         }
         file << content[rowOffset + columnIdx];
       }
