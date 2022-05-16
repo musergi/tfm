@@ -28,7 +28,9 @@ int main(int argc, char const **argv) {
   /* Run program */
   for (int i = 0; i < 100; i++) {
     long long timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-    df.add(eventSet.resetRead());
+    auto eventCounts = eventSet.resetRead();
+    eventCounts.insert(eventCounts.begin(), timestamp);
+    df.add(eventCounts);
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
   }
 
