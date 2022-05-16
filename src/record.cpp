@@ -13,6 +13,7 @@ int main(int argc, char const **argv) {
   eventSet.setGranularityMax();
 
   std::vector<std::string> columns;
+  columns.push_back("timestamp");
   for (int i = 1; i < argc; i++) {
     columns.push_back(argv[i]);
     papi::Event event(&context, argv[i]);
@@ -25,8 +26,8 @@ int main(int argc, char const **argv) {
   eventSet.start();
 
   /* Run program */
-  std::vector<std::vector<long long>> measures;
   for (int i = 0; i < 100; i++) {
+    long long timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
     df.add(eventSet.resetRead());
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
   }
