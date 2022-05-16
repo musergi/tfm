@@ -26,7 +26,7 @@ int main(int argc, char const **argv) {
   eventSet.start();
 
   /* Run program */
-  for (int i = 0; i < 100; i++) {
+  for (int i = 0; i < 500; i++) {
     long long timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
     auto eventCounts = eventSet.resetRead();
     eventCounts.insert(eventCounts.begin(), timestamp);
