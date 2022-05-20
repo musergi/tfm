@@ -23,11 +23,11 @@ end_time = round(datetime.now().timestamp() * 1000)
 recording_proc.wait()
 
 with open('out.csv') as f:
-    data = map(lambda l: l.split(','), f)
-    headers = next(data)
+    data = list(map(lambda l: l.split(','), f))
+    headers = data[0]
     timestamp_index = headers.index('timestamp')
     headers.append('label')
-    new_content = map(lambda row: [*row, '1'] if start_time < int(row[timestamp_index]) < end_time else [*row, '0'], data)
+    new_content = map(lambda row: [*row, '1'] if start_time < int(row[timestamp_index]) < end_time else [*row, '0'], data[1:])
     new_lines = [headers] + list(new_content)
     new_lines = map(lambda l: ','.join(l), new_lines)
     with open('out_labeled.csv', 'w') as f:
