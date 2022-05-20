@@ -27,7 +27,7 @@ with open('out.csv') as f:
     headers = next(data)
     timestamp_index = headers.index('timestamp')
     headers.append('label')
-    new_content = map(lambda row: [*row, 1] if start_time < row[timestamp_index] < end_time else [*row, 0], data)
+    new_content = map(lambda row: [*row, 1] if start_time < int(row[timestamp_index]) < end_time else [*row, 0], data)
     new_lines = [headers] + list(new_content)
     with open('out_labeled.csv', 'w') as f:
         f.writelines(new_lines)
