@@ -29,6 +29,6 @@ with open('out.csv') as f:
     headers.append('label')
     new_content = map(lambda row: [*row, '1'] if start_time < int(row[timestamp_index]) < end_time else [*row, '0'], data[1:])
     new_lines = [headers] + list(new_content)
-    new_lines = map(lambda l: ','.join(l), new_lines)
+    new_lines = map(lambda l: ','.join(l) + '\n', new_lines)
     with open('out_labeled.csv', 'w') as f:
         f.writelines(new_lines)
