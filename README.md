@@ -1,5 +1,41 @@
 # Dataset for CSCAs
 
+This repository contains all the necessary components to record a dataset of a meltdown attacks. For the implementation
+of the attack we relly in third parties in the `deps` folder.
+
+## Running an example
+
+With a regular pull of the reporitory the submodules are not downloaded for this reason we will first force the
+submodules to be pulled.
+
+```bash
+git submodule init
+git submodule update
+```
+
+After it we must build the example attacks:
+
+```bash
+cd deps/meltdown
+make
+```
+
+We then need to build the monitoring software, for this step PAPI must be installed:
+
+```bash
+mkdir build
+cd build
+cmake ..
+make
+```
+
+In order to run an execution we simply need to run the automated script (beware it uses python3):
+
+```bash
+python run_tests.py --vuln ./deps/meltdown/test --events PAPI_TOT_INS PAPI_L2_TCA PAPI_L2_TCM
+python show_results.py --dataset out_labeled.csv
+```
+
 ## Previous work
 
 Many works have worked on the subject of detecting at Run-Time CSCAs however it is hard to compare the methodologies
