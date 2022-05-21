@@ -23,7 +23,7 @@ end_time = round(datetime.now().timestamp() * 1000)
 recording_proc.wait()
 
 with open('out.csv') as f:
-    data = list(map(lambda l: l.split(','), f))
+    data = list(map(lambda l: l.strip().split(','), f))
     headers = data[0]
     timestamp_index = headers.index('timestamp')
     headers.append('label')
