@@ -20,7 +20,7 @@ args = parser.parse_args()
 # Run the processes
 recording_proc = subprocess.Popen(args=['taskset', '0x1', './build/src/record', *args.events])
 time.sleep(0.5)
-stress_proc = subprocess.Popen(args=['taskset', '0x1', 'stress', '--cpu', '1'])
+stress_proc = subprocess.Popen(args=['taskset', '0x1', 'stress', '--vm', '1'])
 time.sleep(0.5)
 start_time = round(datetime.now().timestamp() * 1000)
 exploit_proc = subprocess.Popen(args=['taskset', '0x1', args.vuln])
