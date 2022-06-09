@@ -28,7 +28,8 @@ exploit_proc = subprocess.Popen(args=['taskset', '0x1', args.vuln])
 exploit_proc.wait()
 end_time = round(datetime.now().timestamp() * 1000)
 recording_proc.wait()
-stress_proc.kill()
+if args.stress:
+    stress_proc.kill()
 
 # Dataset labeling
 with open('out.csv') as f:
