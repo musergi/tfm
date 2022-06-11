@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataset', required=True)
-parser.add_argument('--column', required=True)
+parser.add_argument('--column')
 args = parser.parse_args()
 
 df = pd.read_csv(args.dataset)
